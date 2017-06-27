@@ -97,7 +97,15 @@ rearrange = function(_arr, _byFilter, _sortDirection, _alongParameter, _interpol
 createItemSort = function(attrStr) {
   var attr = attrStr;
   return function(a, b) {
-    return Number(a[attr]) - Number(b[attr]);
+    // Hack to sort by bottom, rather than top of objects.
+    if(attr == "top"){
+      var a_bottom = a[attr] - a["height"];
+      var b_bottom = b[attr] - b["height"];
+      // alert(a["height"] + " " + b["height"]);
+      return Number(a_bottom) - Number(b_bottom);
+    }else{
+      return Number(a[attr]) - Number(b[attr]);
+    }
   };
 };
 
